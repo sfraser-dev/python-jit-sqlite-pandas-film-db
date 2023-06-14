@@ -69,18 +69,19 @@ def disconnect_from_database(conn):
     except BaseException as be:
         print(f"DB disconnection error: {be}")
 
-def adapt_table_sql_query(conn, query):
-    """Performs a SQL query that changes the DB."""
+def table_adapt(conn, query, description):
     cursor = conn.cursor()
     cursor.execute(query)
     conn.commit()
     cursor.close()
+    table_print_all(conn, query, description)
 
-def pandas_print_table(conn, query, the_str):
+def table_print_all(conn, query, description):
     """Performs a SQL query then writes the resultant view to the terminal.
        Uses pandas to better format the tables."""
 
-    print(f"\n{bcolors.OKGREEN}{the_str}{bcolors.ENDC} obtained via {bcolors.WARNING}{query}{bcolors.ENDC}\n")
+    print(f"\n{bcolors.OKGREEN}{description}{bcolors.ENDC} via {bcolors.WARNING}{query}{bcolors.ENDC}\n")
+
 
     dql_query = pd.read_sql("SELECT * FROM films", conn)
     df = pd.DataFrame(dql_query)
@@ -89,7 +90,21 @@ def pandas_print_table(conn, query, the_str):
     print(df.to_markdown(index=0)) 
 
     input(f"\n{bcolors.FAIL}Press Enter to continue...{bcolors.ENDC}\n")
-    
+
+def table_print_report(conn, query, description):
+    """Performs a SQL query then writes the resultant view to the terminal.
+       Uses pandas to better format the tables."""
+
+    print(f"\n{bcolors.OKGREEN}{description}{bcolors.ENDC} via {bcolors.WARNING}{query}{bcolors.ENDC}\n")
+
+    dql_query = pd.read_sql(the_query, conn)
+    df = pd.DataFrame(dql_query)
+
+    # Retro style: DataFrame to retro style markdown, row index count removed. 
+    print(df.to_markdown(index=0)) 
+
+    input(f"\n{bcolors.FAIL}Press Enter to continue...{bcolors.ENDC}\n")
+
 if __name__ == "__main__":
     """Main function."""
 
@@ -112,36 +127,36 @@ if __name__ == "__main__":
     #   is for read/SELECT queries, SQL table unaltered, view added to report file.
     
     # Report the state of the films table immediately after creation.
-    pandas_print_table(conn, "SELECT * FROM films", "The original film table from the films database")
+    table_print_all(conn, """SELECT * FROM films;""", "The original films table obtained")
 
     # Add a film to the films table. 
     the_query = """INSERT INTO films(id, title, year, rating, duration, genre)
                                         VALUES(11,'Poopy Pants', 2020, 'PG', 129, 'Comedy');"""
-    adapt_table_sql_query(conn, the_query)
-    pandas_print_table(conn, the_query, "Added film 'Poopy Pants'")
+    table_adapt(conn, the_query, "Added film 'Poopy Pants'")
 
     # Delete the film just added. 
     the_query = """DELETE FROM films WHERE id=11;"""
-    adapt_table_sql_query(conn, the_query)
-    pandas_print_table(conn, the_query, "Deleted film 'Poopy Pants'")
+    table_adapt(conn, the_query, "Deleted film 'Poopy Pants'")
 
     # Update / change the genre of "The Nice Guys".
     the_query = """UPDATE films SET genre='Comedy' WHERE title='The Nice Guys';"""
-    adapt_table_sql_query(conn, the_query)
-    pandas_print_table(conn, the_query, "Genre of 'The Nice Guys' changed to 'Comedy'")
+    table_adapt(conn, the_query, "Genre of 'The Nice Guys' changed to 'Comedy'")
 
     #########################
     # Report generation.
     #########################
 
     # Report films that are in the "Comedy" genre.
-    pandas_print_table(conn, "SELECT * FROM films WHERE genre='Comedy'", "All films in the genre 'Comedy'")
+    the_query = """SELECT * FROM films WHERE genre='Comedy';"""
+    table_print_report(conn, the_query, "All films in the genre 'Comedy' selected")
     
     # Report which films were released in 2015.
-    pandas_print_table(conn, "SELECT * FROM films WHERE year=2015", "All films released in 2015")
+    the_query = """SELECT * FROM films WHERE year=2015;"""
+    table_print_report(conn, the_query, "All films released in 2015 selected")
 
     # Report all films that have a "PG" rating.
-    pandas_print_table(conn, "SELECT * FROM films WHERE rating='PG'", "All films rated 'PG'")
+    the_query = """SELECT * FROM films WHERE rating='PG';"""
+    table_print_report(conn, the_query, "All films rated 'PG' selected")
 
     # Close the DB connection.
     disconnect_from_database(conn)
