@@ -74,30 +74,20 @@ def table_adapt(conn, query, description):
     cursor.execute(query)
     conn.commit()
     cursor.close()
-    table_print_all(conn, query, description)
+    table_print_report(conn, query, description, "just-select-all")
 
-def table_print_all(conn, query, description):
+def table_print_report(conn, query, description, query_to_read_db="use-query-argument"):
     """Performs a SQL query then writes the resultant view to the terminal.
        Uses pandas to better format the tables."""
 
     print(f"\n{bcolors.OKGREEN}{description}{bcolors.ENDC} via {bcolors.WARNING}{query}{bcolors.ENDC}\n")
 
-
-    dql_query = pd.read_sql("SELECT * FROM films", conn)
-    df = pd.DataFrame(dql_query)
-
-    # Retro style: DataFrame to retro style markdown, row index count removed. 
-    print(df.to_markdown(index=0)) 
-
-    input(f"\n{bcolors.FAIL}Press Enter to continue...{bcolors.ENDC}\n")
-
-def table_print_report(conn, query, description):
-    """Performs a SQL query then writes the resultant view to the terminal.
-       Uses pandas to better format the tables."""
-
-    print(f"\n{bcolors.OKGREEN}{description}{bcolors.ENDC} via {bcolors.WARNING}{query}{bcolors.ENDC}\n")
-
-    dql_query = pd.read_sql(the_query, conn)
+    if query_to_read_db == "use-query-argument": 
+        dql_query = pd.read_sql(query, conn)
+    elif query_to_read_db == "just-select-all":
+        dql_query = pd.read_sql("""SELECT * FROM films""", conn)
+    else: 
+        print("error: 'query_to_use' unknown")
     df = pd.DataFrame(dql_query)
 
     # Retro style: DataFrame to retro style markdown, row index count removed. 
@@ -127,11 +117,11 @@ if __name__ == "__main__":
     #   is for read/SELECT queries, SQL table unaltered, view added to report file.
     
     # Report the state of the films table immediately after creation.
-    table_print_all(conn, """SELECT * FROM films;""", "The original films table obtained")
+    table_print_report(conn, """SELECT * FROM films;""", "The original films table obtained")
 
     # Add a film to the films table. 
     the_query = """INSERT INTO films(id, title, year, rating, duration, genre)
-                                        VALUES(11,'Poopy Pants', 2020, 'PG', 129, 'Comedy');"""
+                    VALUES(11,'Poopy Pants', 2020, 'PG', 129, 'Comedy');"""
     table_adapt(conn, the_query, "Added film 'Poopy Pants'")
 
     # Delete the film just added. 
@@ -147,8 +137,8 @@ if __name__ == "__main__":
     #########################
 
     # Report films that are in the "Comedy" genre.
-    the_query = """SELECT * FROM films WHERE genre='Comedy';"""
-    table_print_report(conn, the_query, "All films in the genre 'Comedy' selected")
+    the_query = """SELECT * FROM films WHERE genre='Animation';"""
+    table_print_report(conn, the_query, "All films in the genre 'Animation' selected")
     
     # Report which films were released in 2015.
     the_query = """SELECT * FROM films WHERE year=2015;"""
