@@ -81,12 +81,12 @@ if __name__ == "__main__":
 
     # # Add a film to the films table. 
     the_query = """INSERT INTO films(id, title, year, rating, duration, genre)
-                    VALUES(101,'Poopy Pants', 2020, 'PG', 129, 'Comedy');"""
-    table_adapt(conn, the_query, "Added film 'Poopy Pants'")
+                    VALUES(101,'Test Film', 2020, 'PG', 129, 'Comedy');"""
+    table_adapt(conn, the_query, "Added film 'Test Film'")
 
     # # Delete the film just added. 
     the_query = """DELETE FROM films WHERE id=101;"""
-    table_adapt(conn, the_query, "Deleted film 'Poopy Pants'")
+    table_adapt(conn, the_query, "Deleted film 'Test Film'")
 
     # # Update / change the genre of "The Nice Guys".
     the_query = """UPDATE films SET genre='Comedy' WHERE title='The Nice Guys';"""
