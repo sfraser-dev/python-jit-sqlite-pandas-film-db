@@ -14,52 +14,14 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-def create_filmflixDB_then_add_films_table_then_add_data_to_films_table():
-    """Connects to the filmflix database."""
-    # If DB already exists, delete it.
-    db_name = "filmflix.db"
-    try:
-        if os.path.exists("db_name"):
-            os.remove(db_name)
-    except OSError as e:
-        print("Warning: %s - %s." % (e.filename, e.strerror))
+def connect_to_database():
+    conn = sqlite3.connect("filmflix.db")
+    cursor = conn.cursor()
     try:
         # Attempting to connect to a non-existing DB will create it.
         conn = sqlite3.connect("filmflix.db")
     except BaseException as be:
         print(f"DB connection error: {be}")
-    
-    cursor = conn.execute("""DROP TABLE IF EXISTS films""")
-    conn.commit()
-    cursor = conn.execute   ("""CREATE TABLE films 
-                                (   
-                                    [id] INTEGER PRIMARY KEY, 
-                                    [title] TEXT, 
-                                    [year] INTEGER, 
-                                    [rating] TEXT, 
-                                    [duration] INTEGER,
-                                    [genre] TEXT
-                                )
-                            """)
-    cursor.execute("""
-                        INSERT INTO
-                        films(id, title, year, rating, duration, genre)
-                        VALUES
-                        (1, "The Muppets", 2022, "PG", 116, "Comedy"),
-                        (2, "The Legend of Tarzan", 2016, "PG", 109, "Animation"),
-                        (3, "Jason Bourne", 2015, "G", 123, "Action"),
-                        (4, "The Nice Guys", 2016, "R", 116, "Action"),
-                        (5, "The Secret Life of Pets", 2016, "G", 91, "Comedy"), 
-                        (6, "Star Trek Beyond", 2015, "PG", 120, "Action"),
-                        (7, "Batman v Superman", 2016, "PG", 151, "Action"),
-                        (8, "Finding Dory", 2016, "G", 103, "Comedy"),
-                        (9, "Zootopia", 2016, "G", 108,  "Animation"),
-                        (10, "The BFG", 2016, "PG", 90, "Animation")
-                    """)
-    # Commit the changes.   
-    conn.commit()
- 
-    cursor.close()
     return conn
 
 def disconnect_from_database(conn):
@@ -100,7 +62,15 @@ if __name__ == "__main__":
 
     # Create a SQLite DB called "filmflix.db", create a table in this DB called
     # "films", populate the films table with film data.
-    conn = create_filmflixDB_then_add_films_table_then_add_data_to_films_table()
+    #conn = create_filmflixDB_then_add_films_table_then_add_data_to_films_table()
+
+    conn = connect_to_database()
+
+    cursor = conn.cursor()
+    # cursor.execute("""ALTER TABLE tblFilms RENAME COLUMN yearReleased TO year;""")
+    cursor.execute("""ALTER TABLE tblFilms RENAME TO films;""")
+    conn.commit()
+    cursor.close()
 
     # Tasks: 
     # 1. Perform CRUD operations (Create (INSERT), Read (SELECT), Update (UPDATE), Delete (DELETE)). 
@@ -117,36 +87,36 @@ if __name__ == "__main__":
     #   is for read/SELECT queries, SQL table unaltered, view added to report file.
     
     # Report the state of the films table immediately after creation.
-    table_print_report(conn, """SELECT * FROM films;""", "The original films table obtained")
+    # table_print_report(conn, """SELECT * FROM films;""", "The original films table obtained")
 
-    # Add a film to the films table. 
-    the_query = """INSERT INTO films(id, title, year, rating, duration, genre)
-                    VALUES(11,'Poopy Pants', 2020, 'PG', 129, 'Comedy');"""
-    table_adapt(conn, the_query, "Added film 'Poopy Pants'")
+    # # Add a film to the films table. 
+    # the_query = """INSERT INTO tblFilms(id, title, year, rating, duration, genre)
+    #                 VALUES(101,'Poopy Pants', 2020, 'PG', 129, 'Comedy');"""
+    # table_adapt(conn, the_query, "Added film 'Poopy Pants'")
 
-    # Delete the film just added. 
-    the_query = """DELETE FROM films WHERE id=11;"""
-    table_adapt(conn, the_query, "Deleted film 'Poopy Pants'")
+    # # Delete the film just added. 
+    # the_query = """DELETE FROM films WHERE id=101;"""
+    # table_adapt(conn, the_query, "Deleted film 'Poopy Pants'")
 
-    # Update / change the genre of "The Nice Guys".
-    the_query = """UPDATE films SET genre='Comedy' WHERE title='The Nice Guys';"""
-    table_adapt(conn, the_query, "Genre of 'The Nice Guys' changed to 'Comedy'")
+    # # Update / change the genre of "The Nice Guys".
+    # the_query = """UPDATE films SET genre='Comedy' WHERE title='The Nice Guys';"""
+    # table_adapt(conn, the_query, "Genre of 'The Nice Guys' changed to 'Comedy'")
 
-    #########################
-    # Report generation.
-    #########################
+    # #########################
+    # # Report generation.
+    # #########################
 
-    # Report films that are in the "Comedy" genre.
-    the_query = """SELECT * FROM films WHERE genre='Animation';"""
-    table_print_report(conn, the_query, "All films in the genre 'Animation' selected")
+    # # Report films that are in the "Comedy" genre.
+    # the_query = """SELECT * FROM films WHERE genre='Animation';"""
+    # table_print_report(conn, the_query, "All films in the genre 'Animation' selected")
     
-    # Report which films were released in 2015.
-    the_query = """SELECT * FROM films WHERE year=2015;"""
-    table_print_report(conn, the_query, "All films released in 2015 selected")
+    # # Report which films were released in 2015.
+    # the_query = """SELECT * FROM films WHERE year=2015;"""
+    # table_print_report(conn, the_query, "All films released in 2015 selected")
 
-    # Report all films that have a "PG" rating.
-    the_query = """SELECT * FROM films WHERE rating='PG';"""
-    table_print_report(conn, the_query, "All films rated 'PG' selected")
+    # # Report all films that have a "PG" rating.
+    # the_query = """SELECT * FROM films WHERE rating='PG';"""
+    # table_print_report(conn, the_query, "All films rated 'PG' selected")
 
     # Close the DB connection.
     disconnect_from_database(conn)
