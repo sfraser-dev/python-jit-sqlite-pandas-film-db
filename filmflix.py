@@ -55,7 +55,7 @@ def main():
                 print("Exiting")
                 break
             case _:
-                print("error: cannot match case") 
+                print("error: cannot match case: main()") 
                 exit()
     conn.close()
     disconnect_from_database(conn)
