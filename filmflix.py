@@ -1,7 +1,6 @@
 # NB: Can use SQLite Viewer extension in vscode to view the DB.
 import sqlite3
 import pandas as pd
-import os
 
 class bcolors:
     HEADER = '\033[95m'
@@ -60,17 +59,8 @@ def table_print_report(conn, query, description, query_to_read_db="use-query-arg
 if __name__ == "__main__":
     """Main function."""
 
-    # Create a SQLite DB called "filmflix.db", create a table in this DB called
-    # "films", populate the films table with film data.
-    #conn = create_filmflixDB_then_add_films_table_then_add_data_to_films_table()
-
+    # Connect to the sqlite database.
     conn = connect_to_database()
-
-    cursor = conn.cursor()
-    # cursor.execute("""ALTER TABLE tblFilms RENAME COLUMN yearReleased TO year;""")
-    cursor.execute("""ALTER TABLE tblFilms RENAME TO films;""")
-    conn.commit()
-    cursor.close()
 
     # Tasks: 
     # 1. Perform CRUD operations (Create (INSERT), Read (SELECT), Update (UPDATE), Delete (DELETE)). 
@@ -87,36 +77,36 @@ if __name__ == "__main__":
     #   is for read/SELECT queries, SQL table unaltered, view added to report file.
     
     # Report the state of the films table immediately after creation.
-    # table_print_report(conn, """SELECT * FROM films;""", "The original films table obtained")
+    table_print_report(conn, """SELECT * FROM films;""", "The original films table obtained")
 
     # # Add a film to the films table. 
-    # the_query = """INSERT INTO tblFilms(id, title, year, rating, duration, genre)
-    #                 VALUES(101,'Poopy Pants', 2020, 'PG', 129, 'Comedy');"""
-    # table_adapt(conn, the_query, "Added film 'Poopy Pants'")
+    the_query = """INSERT INTO films(id, title, year, rating, duration, genre)
+                    VALUES(101,'Poopy Pants', 2020, 'PG', 129, 'Comedy');"""
+    table_adapt(conn, the_query, "Added film 'Poopy Pants'")
 
     # # Delete the film just added. 
-    # the_query = """DELETE FROM films WHERE id=101;"""
-    # table_adapt(conn, the_query, "Deleted film 'Poopy Pants'")
+    the_query = """DELETE FROM films WHERE id=101;"""
+    table_adapt(conn, the_query, "Deleted film 'Poopy Pants'")
 
     # # Update / change the genre of "The Nice Guys".
-    # the_query = """UPDATE films SET genre='Comedy' WHERE title='The Nice Guys';"""
-    # table_adapt(conn, the_query, "Genre of 'The Nice Guys' changed to 'Comedy'")
+    the_query = """UPDATE films SET genre='Comedy' WHERE title='The Nice Guys';"""
+    table_adapt(conn, the_query, "Genre of 'The Nice Guys' changed to 'Comedy'")
 
-    # #########################
-    # # Report generation.
-    # #########################
+    ##########################
+    ## Report generation.
+    ##########################
 
-    # # Report films that are in the "Comedy" genre.
-    # the_query = """SELECT * FROM films WHERE genre='Animation';"""
-    # table_print_report(conn, the_query, "All films in the genre 'Animation' selected")
+    # Report films that are in the "Comedy" genre.
+    the_query = """SELECT * FROM films WHERE genre='Animation';"""
+    table_print_report(conn, the_query, "All films in the genre 'Animation' selected")
     
-    # # Report which films were released in 2015.
-    # the_query = """SELECT * FROM films WHERE year=2015;"""
-    # table_print_report(conn, the_query, "All films released in 2015 selected")
+    # Report which films were released in 2015.
+    the_query = """SELECT * FROM films WHERE year=2015;"""
+    table_print_report(conn, the_query, "All films released in 2015 selected")
 
     # # Report all films that have a "PG" rating.
-    # the_query = """SELECT * FROM films WHERE rating='PG';"""
-    # table_print_report(conn, the_query, "All films rated 'PG' selected")
+    the_query = """SELECT * FROM films WHERE rating='PG';"""
+    table_print_report(conn, the_query, "All films rated 'PG' selected")
 
     # Close the DB connection.
     disconnect_from_database(conn)
