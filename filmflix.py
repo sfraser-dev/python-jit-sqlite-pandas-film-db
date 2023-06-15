@@ -26,9 +26,11 @@ def main():
 
     while True:
         choice_action = input("\n"+
-                                "1. View All Records\n"+
-                                "2. Add Record\n"+
-                                "3. Delete Record\n"+
+                                "1. Add Record (Create)\n"+
+                                "2. View All Records (Read)\n"+
+                                "3. Update Record (Update)\n"+
+                                "4. Delete Record (Delete)\n"+
+                                "5. View Report\n"+
                                 "6. Exit\n\n"
                               )
 
@@ -40,11 +42,15 @@ def main():
 
         match choice_action:
             case 1:
-                query_view_all_records(conn)
-            case 2:
                 query_add_record(conn)
+            case 2:
+                query_view_all_records(conn)
             case 3: 
+                query_update_record(conn)
+            case 4: 
                 query_delete_record(conn, 37)
+            case 5: 
+                query_view_report(conn, "year", 2015)
             case 6:
                 print("Exiting")
                 break
@@ -54,6 +60,5 @@ def main():
     conn.close()
     disconnect_from_database(conn)
 
-        
 if __name__ == "__main__":
     main()
