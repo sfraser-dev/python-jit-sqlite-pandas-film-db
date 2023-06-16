@@ -1,7 +1,7 @@
-from view_specific_report_options import *
+from secondary_menu_items import *
 from colors import *
 
-def view_specific_report_top_menu(conn):
+def secondary_menu_specific_report(conn):
     """Top level menu for viewing a specific report."""
     choice_action = """1. View all records from a selected field
 2. View all films from a selected year
@@ -14,16 +14,16 @@ def view_specific_report_top_menu(conn):
             choice_action = int(input(choice_action))
             match choice_action:
                 case 1:
-                    view_specific_report_1()
+                    secondary_menu_item_1()
                     continue 
                 case 2:
-                    view_specific_report_2()
+                    secondary_menu_item_2()
                     continue
                 case 3:
-                    view_specific_report_3()
+                    secondary_menu_item_3()
                     continue
                 case 4:
-                    view_specific_report_4()
+                    secondary_menu_item_4()
                     continue
                 case 5:
                     print("Exiting")

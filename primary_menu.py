@@ -1,4 +1,4 @@
-from filmflix_options import *
+from primary_menu_items import *
 from connect import *
 from colors import *
 
@@ -40,20 +40,20 @@ def main():
             choice_action = int(choice_action)
             match choice_action:
                 case 1:
-                    filmflix_1_add_record(conn)
+                    primary_menu_item_1_add_record(conn)
                     continue
                 case 2:
-                    filmflix_2_view_all_records(conn)
+                    primary_menu_item_2_view_all_records(conn)
                     continue
                 case 3: 
                     # STILL NEED TO FILL OUT!!!!!!!!!!!!!!!!!!!!
-                    filmflix_3_update_record(conn)
+                    primary_menu_item_3_update_record(conn)
                     continue
                 case 4: 
-                    filmflix_4_delete_record(conn)
+                    primary_menu_item_4_delete_record(conn)
                     continue
                 case 5: 
-                    view_specific_report_top_menu(conn)
+                    secondary_menu_specific_report(conn)
                     continue
                 case 6:
                     print("Exiting")

@@ -48,21 +48,20 @@ def get_rating():
     wanted_text = ["pg", "g", "r"]
     question = "Enter film rating ('PG', 'G', or 'R'): "
     while True:
-        the_rating = (get_input_string(question)).lower()
+        the_rating = get_input_string(question).lower()
         if the_rating in wanted_text:
-            break
+            return the_rating.upper()
         else:
             print(f"{bcolors.FAIL}please select from 'PG', 'G' or 'R'{bcolors.ENDC}")
 
 def get_genre():
     wanted_text = ["comedy", "action", "animation", "fantasy", "crime"]
     question = "Enter film genre ('Comedy', 'Action', 'Animation', 'Fantasy' or 'Crime'): "
-    flag = True
-    while flag == True:
-        the_genre = (get_input_string(question)).lower()
+    while True:
+        the_genre = get_input_string(question).lower()
         # Enough to just match the first three letters of the word.
-        for x in wanted_text:
-            if x[:3] == the_genre[0:3]: 
-                flag = False
+        for wt in wanted_text:
+            if wt[:3] == the_genre[0:3]: 
+                return wt.lower().title()
         else:
             print(f"{bcolors.FAIL}please select from 'Comedy', 'Action', 'Animation', 'Fantasy' or 'Crime'{bcolors.ENDC}")
