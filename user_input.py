@@ -1,19 +1,8 @@
 from colors import *
 
-def get_id():
-    question = "Enter id of film to be deleted: "
-    return get_int(question)
-
-def get_year():
-    question = "Enter film release year: "
-    return get_int(question)
-
-def get_duration():
-    question = "Enter film duration (mins): "
-    return get_int(question)
-
-def get_int(question):
-    """Sub menu for getting and checking user input integers."""
+##### Get integer user inputs.
+def get_input_int(question):
+    """ Generic try/except for getting and checking user input integers."""
     while True:
         try:
             val = int(input(question))
@@ -26,68 +15,21 @@ def get_int(question):
             continue 
     return val
 
+def get_id():
+    question = "Enter id of film to be deleted: "
+    return get_input_int(question)
 
-def get_rating():
-    """Sub menu for getting and checking a user input string."""
-    question = "Enter film rating (PG, G, or R): "
-    # Parental Guidance, General, Restricted
-    the_rating = ""
-    while True:
-        try:
-            user_input = input(question)
-            text_check = user_input.lower()
-            match text_check:
-                case "pg":
-                    the_rating = "PG"
-                    break
-                case "g":
-                    the_rating = "G"
-                    break
-                case "r": 
-                    the_rating = "R"
-                    break
-                case _:
-                    print(f"{bcolors.FAIL}input error, please try again{bcolors.ENDC}")
-                    continue
-        except Exception as e:
-            print(e)
-            continue 
-    return the_rating
+def get_year():
+    question = "Enter film release year: "
+    return get_input_int(question)
 
-def get_genre():
-    """Sub menu for getting and checking a user input string."""
-    question = "Enter film genre: Comedy, Action, Animation, Fantasy, Crime: "
-    the_genre = ""
-    while True:
-        try:
-            user_input = input(question)
-            text_check = user_input.lower()
-            if "com" in text_check:
-                the_genre = "Comedy"
-                break
-            elif "act" in text_check:
-                the_genre = "Action"
-                break
-            elif "ani" in text_check:
-                the_genre = "Animation"
-                break
-            elif "fan" in text_check:
-                the_genre = "Fantasy"
-                break
-            elif "cri" in text_check:
-                the_genre = "Crime"
-                break
-            else:
-                print(f"{bcolors.FAIL}input error, please try again{bcolors.ENDC}")
-                continue
-        except Exception as e:
-            print(e)
-            continue 
-    return the_genre
+def get_duration():
+    question = "Enter film duration (mins): "
+    return get_input_int(question)
 
-def get_title():
-    """Sub menu for getting and checking a user input string."""
-    question = "Enter film title: "
+##### Get string user inputs.
+def get_input_string(question):
+    """ Generic try/except for getting and checking user input strings."""
     while True:
         try:
             text = input(question)
@@ -97,4 +39,30 @@ def get_title():
             continue 
     return text
 
+def get_title():
+    question = "Enter film title: "
+    return get_input_string(question)
 
+def get_rating():
+    # Parental Guidance, General, Restricted
+    wanted_text = ["pg", "g", "r"]
+    question = "Enter film rating ('PG', 'G', or 'R'): "
+    while True:
+        the_rating = (get_input_string(question)).lower()
+        if the_rating in wanted_text:
+            break
+        else:
+            print(f"{bcolors.FAIL}please select from 'PG', 'G' or 'R'{bcolors.ENDC}")
+
+def get_genre():
+    wanted_text = ["comedy", "action", "animation", "fantasy", "crime"]
+    question = "Enter film genre ('Comedy', 'Action', 'Animation', 'Fantasy' or 'Crime'): "
+    flag = True
+    while flag == True:
+        the_genre = (get_input_string(question)).lower()
+        # Enough to just match the first three letters of the word.
+        for x in wanted_text:
+            if x[:3] == the_genre[0:3]: 
+                flag = False
+        else:
+            print(f"{bcolors.FAIL}please select from 'Comedy', 'Action', 'Animation', 'Fantasy' or 'Crime'{bcolors.ENDC}")
