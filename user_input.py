@@ -26,6 +26,7 @@ def get_int(question):
             continue 
     return val
 
+
 def get_rating():
     """Sub menu for getting and checking a user input string."""
     question = "Enter film rating (PG, G, or R): "
@@ -95,3 +96,5 @@ def get_title():
             print(e)
             continue 
     return text
+
+

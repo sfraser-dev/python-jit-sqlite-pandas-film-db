@@ -1,7 +1,7 @@
 from table_adapt import *
 from user_input import *
 
-def query_add_record(conn):
+def filmflix_1_add_record(conn):
     """Add a record/row to the database"""
     
     title = get_title()

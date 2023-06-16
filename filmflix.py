@@ -1,5 +1,6 @@
+from filmflix_options import *
 from connect import *
-from queries import *
+from colors import *
 
 # if __name__ == "__main__":
     
@@ -39,32 +40,29 @@ def main():
             choice_action = int(choice_action)
             match choice_action:
                 case 1:
-                    query_add_record(conn)
+                    filmflix_1_add_record(conn)
                     continue
                 case 2:
-                    query_view_all_records(conn)
+                    filmflix_2_view_all_records(conn)
                     continue
                 case 3: 
-                    query_update_record(conn)
+                    filmflix_3_update_record(conn)
                     continue
                 case 4: 
-                    query_delete_record(conn)
+                    filmflix_4_delete_record(conn)
                     continue
                 case 5: 
-                    query_view_specific_report(conn, "year", 2015)
+                    view_specific_report_top_menu(conn)
                     continue
                 case 6:
                     print("Exiting")
                     break
                 case _:
-                    print("invalid choice, please try again")
+                    print(f"{bcolors.FAIL}input error, please try again{bcolors.ENDC}")
                     continue
         except ValueError:
             print(f"{choice_action} is not a valid value.")
             continue
-        except EOFError:
-            print("Please input something....")
-            continue 
 
     # Close connection and disconnect from the database.
     conn.close()

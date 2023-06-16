@@ -1,7 +1,7 @@
 from table_adapt import *
 from user_input import *
 
-def query_delete_record(conn):
+def filmflix_4_delete_record(conn):
     """Delete a record/row from the database."""
     
     id = get_id()
