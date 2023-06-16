@@ -24,39 +24,49 @@ def main():
 
     conn = connect_to_database()
 
+    # Top level menu loop.
     while True:
         choice_action = input("\n"+
                                 "1. Add Record (Create)\n"+
                                 "2. View All Records (Read)\n"+
                                 "3. Update Record (Update)\n"+
                                 "4. Delete Record (Delete)\n"+
-                                "5. View Report\n"+
+                                "5. View Specific Report\n"+
                                 "6. Exit\n\n"
                               )
 
         try:
             choice_action = int(choice_action)
+            match choice_action:
+                case 1:
+                    query_add_record(conn)
+                    continue
+                case 2:
+                    query_view_all_records(conn)
+                    continue
+                case 3: 
+                    query_update_record(conn)
+                    continue
+                case 4: 
+                    query_delete_record(conn)
+                    continue
+                case 5: 
+                    query_view_specific_report(conn, "year", 2015)
+                    continue
+                case 6:
+                    print("Exiting")
+                    break
+                case _:
+                    print("invalid choice, please try again")
+                    continue
         except ValueError:
             print(f"{choice_action} is not a valid value.")
             continue
+        except EOFError:
+            print("Please input something....")
+            continue 
 
-        match choice_action:
-            case 1:
-                query_add_record(conn)
-            case 2:
-                query_view_all_records(conn)
-            case 3: 
-                query_update_record(conn)
-            case 4: 
-                query_delete_record(conn, 37)
-            case 5: 
-                query_view_report(conn, "year", 2015)
-            case 6:
-                print("Exiting")
-                break
-            case _:
-                print("error: cannot match case: main()") 
-                exit()
+    # Close connection and disconnect from the database.
     conn.close()
     disconnect_from_database(conn)
 

@@ -1,15 +1,7 @@
 import pandas as pd
+from colors import *
 
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
+
 
 def table_print_to_terminal(conn, description, query, query_to_read_db="use-query-argument"):
     """Performs a SQL query then writes the resultant view to the terminal.
