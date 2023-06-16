@@ -16,16 +16,25 @@ def get_input_int(question):
     return val
 
 def get_id():
-    question = "Enter id of film to be deleted: "
+    question = "\nEnter id of film: "
     return get_input_int(question)
 
 def get_year():
-    question = "Enter film release year: "
+    question = "\nEnter film release year: "
     return get_input_int(question)
 
 def get_duration():
-    question = "Enter film duration (mins): "
+    question = "\nEnter film duration (mins): "
     return get_input_int(question)
+
+def get_field_to_update(question):
+    options = ["title", "year", "rating", "duration", "genre"]
+    while True:
+        val = get_input_int(question)
+        if val in [1, 2, 3, 4, 5]:
+            return options[val-1]
+        else:
+            print(f"{bcolors.FAIL}please select either 1, 2, 3, 4 or 5{bcolors.ENDC}")
 
 ##### Get string user inputs.
 def get_input_string(question):
@@ -40,13 +49,13 @@ def get_input_string(question):
     return text
 
 def get_title():
-    question = "Enter film title: "
+    question = "\nEnter film title: "
     return get_input_string(question)
 
 def get_rating():
     # Parental Guidance, General, Restricted
     wanted_text = ["pg", "g", "r"]
-    question = "Enter film rating ('PG', 'G', or 'R'): "
+    question = "\nEnter film rating ('PG', 'G', or 'R'): "
     while True:
         the_rating = get_input_string(question).lower()
         if the_rating in wanted_text:
@@ -56,7 +65,7 @@ def get_rating():
 
 def get_genre():
     wanted_text = ["comedy", "action", "animation", "fantasy", "crime"]
-    question = "Enter film genre ('Comedy', 'Action', 'Animation', 'Fantasy' or 'Crime'): "
+    question = "\nEnter film genre ('Comedy', 'Action', 'Animation', 'Fantasy' or 'Crime'): "
     while True:
         the_genre = get_input_string(question).lower()
         # Enough to just match the first three letters of the word.

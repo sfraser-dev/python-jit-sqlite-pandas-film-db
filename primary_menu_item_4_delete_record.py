@@ -6,6 +6,6 @@ def primary_menu_item_4_delete_record(conn):
     
     id = get_id()
 
-    the_description = f"Deleted film with id={id} via: "
+    the_description = f"Deleting film with id={id} via: "
     the_query = f"""DELETE FROM films WHERE id={id};"""
     table_adapt(conn, the_description, the_query)
