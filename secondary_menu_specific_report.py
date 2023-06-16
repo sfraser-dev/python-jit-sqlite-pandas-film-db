@@ -34,9 +34,3 @@ def secondary_menu_specific_report(conn):
         except ValueError:
                 print(f"{choice_action} is not a valid value.")
                 continue
-
-    # top_level_choice = get_view_specific_report_top_level_menu()
-
-    # the_description = "View report of: "
-    # the_query = f"""SELECT * FROM films WHERE {column}={value};"""
-    # table_print_to_terminal(conn, the_description, the_query)

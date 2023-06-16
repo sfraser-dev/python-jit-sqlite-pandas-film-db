@@ -5,18 +5,11 @@ def primary_menu_item_3_update_record(conn):
     """Update a record/row in the database."""
 
     # Get id of film to update.
-    question = "\nEnter id of film to be updated: "
-    id = get_input_int(question)
+    id = get_id()
 
     # Get what to update, title, year, rating, duration or genre?
-    question = """\nSelect field to be updated:
-1. Title
-2. Year
-3. Rating
-4. Duration
-5. Genre
-"""
-    field_to_update = get_field_to_update(question)
+    field_to_update = get_field_to_update()
+
     # Get value to be updated to.
     match field_to_update:
         case "title":
