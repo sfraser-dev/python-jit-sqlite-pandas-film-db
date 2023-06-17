@@ -3,11 +3,11 @@ from colors import *
 
 def secondary_menu_specific_report(conn):
     """Top level menu for viewing a specific report."""
-    question = """\n1. View all records from a selected field
+    question = f"""{bcolors.OKBLUE}\n1. View all records from a selected field
 2. View all films from a selected year
 3. View all films with a selected rating
 4. View all films from a selected genre
-5. Exit this sub-menu\n""" 
+5. Exit this sub-menu\n{bcolors.ENDC}""" 
     
     while True:
         try:

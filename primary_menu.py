@@ -6,19 +6,19 @@ def main():
     """Main function."""
 
     conn = connect_to_database()
-
-    question = input("""\n
+    
+    question = f"""{bcolors.OKCYAN}\n
 1. Add Record
 2. View All Records
 3. Update Record
 4. Delete Record
 5. View Specific Report
-6. Exit Program\n""")
+6. Exit Program\n{bcolors.ENDC}"""
 
     # Top level menu loop.
     while True:
         try:
-            user_choice = int(question)
+            user_choice = int(input(question))
             match user_choice:
                 case 1:
                     primary_menu_item_1_add_record(conn)
@@ -36,6 +36,7 @@ def main():
                     secondary_menu_specific_report(conn)
                     continue
                 case 6:
+                    print("Exiting program")
                     break
                 case _:
                     print(f"{bcolors.FAIL}input error, please try again{bcolors.ENDC}")
