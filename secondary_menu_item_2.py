@@ -1,2 +1,2 @@
-def secondary_menu_item_2():
+def secondary_menu_item_2(conn):
     pass

@@ -8,7 +8,7 @@ def primary_menu_item_3_update_record(conn):
     id = get_id()
 
     # Get what to update, title, year, rating, duration or genre?
-    field_to_update = get_field_to_update()
+    field_to_update = get_field()
 
     # Get value to be updated to.
     match field_to_update:

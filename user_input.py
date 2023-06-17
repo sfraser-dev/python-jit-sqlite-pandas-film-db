@@ -27,9 +27,9 @@ def get_duration():
     question = "\nEnter film duration (mins): "
     return get_input_int(question)
 
-def get_field_to_update():
+def get_field():
     wanted_text = ["title", "year", "rating", "duration", "genre"]
-    question = """\nSelect field to be updated:
+    question = """\nSelect field:
 1. Title
 2. Year
 3. Rating

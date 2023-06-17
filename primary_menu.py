@@ -7,20 +7,19 @@ def main():
 
     conn = connect_to_database()
 
+    question = input("""\n
+1. Add Record
+2. View All Records
+3. Update Record
+4. Delete Record
+5. View Specific Report
+6. Exit Program\n""")
+
     # Top level menu loop.
     while True:
-        choice_action = input("\n"+
-                                "1. Add Record (Create)\n"+
-                                "2. View All Records (Read)\n"+
-                                "3. Update Record (Update)\n"+
-                                "4. Delete Record (Delete)\n"+
-                                "5. View Specific Report\n"+
-                                "6. Exit\n"
-                              )
-
         try:
-            choice_action = int(choice_action)
-            match choice_action:
+            user_choice = int(question)
+            match user_choice:
                 case 1:
                     primary_menu_item_1_add_record(conn)
                     continue
@@ -37,13 +36,12 @@ def main():
                     secondary_menu_specific_report(conn)
                     continue
                 case 6:
-                    print("Exiting")
                     break
                 case _:
                     print(f"{bcolors.FAIL}input error, please try again{bcolors.ENDC}")
                     continue
         except ValueError:
-            print(f"{choice_action} is not a valid value.")
+            print(f"{bcolors.FAIL}error: primary_menu(){bcolors.ENDC}")
             continue
 
     # Close connection and disconnect from the database.
