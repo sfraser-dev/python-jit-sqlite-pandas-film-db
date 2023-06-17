@@ -16,26 +16,26 @@ def get_input_int(question):
     return val
 
 def get_id():
-    question = "\nEnter id of film: "
+    question = f"{bcolors.WARNING}\nEnter id of film: {bcolors.ENDC}"
     return get_input_int(question)
 
 def get_year():
-    question = "\nEnter film release year: "
+    question = f"{bcolors.WARNING}\nEnter film release year: {bcolors.ENDC}"
     return get_input_int(question)
 
 def get_duration():
-    question = "\nEnter film duration (mins): "
+    question = f"{bcolors.WARNING}\nEnter film duration (mins): {bcolors.ENDC}"
     return get_input_int(question)
 
 def get_field():
     wanted_text = ["title", "year", "rating", "duration", "genre"]
-    question = """\nSelect field:
+    question = f"""{bcolors.WARNING}\nSelect field:
 1. Title
 2. Year
 3. Rating
 4. Duration
 5. Genre
-"""
+{bcolors.ENDC}"""
     while True:
         val = get_input_int(question)
         if val in [1, 2, 3, 4, 5]:
@@ -46,11 +46,11 @@ def get_field():
 def get_rating():
     # Parental Guidance, General, Restricted
     wanted_text = ["PG", "G", "R"]
-    question = """\nEnter film rating:
+    question = f"""{bcolors.WARNING}\nEnter film rating:
 1. PG
 2. G
 3. R
-"""
+{bcolors.ENDC}"""
     while True:
         val = get_input_int(question)
         if val in [1, 2, 3]:
@@ -60,13 +60,13 @@ def get_rating():
 
 def get_genre():
     wanted_text = ["Comedy", "Action", "Animation", "Fantasy", "Crime"]
-    question = """\nEnter film genre:
+    question = f"""{bcolors.WARNING}\nEnter film genre:
 1. Comedy
 2. Action
 3. Animation
 4. Fantasy
 5. Crime
-"""
+{bcolors.ENDC}"""
     while True:
         val = get_input_int(question)
         if val in [1, 2, 3, 4, 5]:
@@ -87,5 +87,5 @@ def get_input_string(question):
     return text
 
 def get_title():
-    question = "\nEnter film title: "
+    question = f"{bcolors.WARNING}\nEnter film title: {bcolors.ENDC}"
     return get_input_string(question)

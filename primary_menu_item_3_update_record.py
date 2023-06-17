@@ -5,6 +5,7 @@ def primary_menu_item_3_update_record(conn):
     """Update a record/row in the database."""
 
     # Get id of film to update.
+    print(f"{bcolors.WARNING}Updating film via id{bcolors.ENDC}")
     id = get_id()
 
     # Get what to update, title, year, rating, duration or genre?
@@ -25,9 +26,9 @@ def primary_menu_item_3_update_record(conn):
         case _:
             print(f"{bcolors.FAIL}case error: primary_menu_item_3_update_record(){bcolors.ENDC}")
 
-    the_description = f"Upating film with id={id}, changing '{field_to_update}' field to '{update_value}' via: "
     # Setting an integer field with an int wrapped in 'single quotes' is fine. 
     # Setting a text field with a value not wrapped in 'single quotes" is not fine.
     # Thus wrapping all in 'single quotes'.
     the_query = f"""UPDATE films SET {field_to_update}='{update_value}' WHERE id={id};"""
-    table_adapt(conn, the_description, the_query)
+    table_adapt(conn, the_query)
+    print(f"\n{bcolors.OKGREEN}Film with id {id} updated{bcolors.ENDC}")

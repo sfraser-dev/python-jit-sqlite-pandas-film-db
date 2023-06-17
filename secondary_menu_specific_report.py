@@ -3,29 +3,26 @@ from colors import *
 
 def secondary_menu_specific_report(conn):
     """Top level menu for viewing a specific report."""
-    question = f"""{bcolors.OKBLUE}\n1. View all records from a selected field
-2. View all films from a selected year
-3. View all films with a selected rating
-4. View all films from a selected genre
-5. Exit this sub-menu\n{bcolors.ENDC}""" 
+    question = f"""{bcolors.OKBLUE}
+1. View all films from selected year
+2. View all films with selected rating
+3. View all films from selected genre
+4. Exit this sub-menu\n{bcolors.ENDC}""" 
     
     while True:
         try:
             user_choice = int(input(question))
             match user_choice:
                 case 1:
-                    secondary_menu_item_1(conn)
+                    secondary_menu_item_1_year(conn)
                     continue 
                 case 2:
-                    secondary_menu_item_2(conn)
+                    secondary_menu_item_2_rating(conn)
                     continue
                 case 3:
-                    secondary_menu_item_3(conn)
+                    secondary_menu_item_3_genre(conn)
                     continue
                 case 4:
-                    secondary_menu_item_4(conn)
-                    continue
-                case 5:
                     print("Exiting")
                     break
                 case _:

@@ -7,7 +7,7 @@ def main():
 
     conn = connect_to_database()
     
-    question = f"""{bcolors.OKCYAN}\n
+    question = f"""{bcolors.OKCYAN}
 1. Add Record
 2. View All Records
 3. Update Record
