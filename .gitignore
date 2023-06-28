@@ -5,6 +5,7 @@
 report.txt
 .vscode/
 *.swp
+replit-upload-folder/
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
