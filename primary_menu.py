@@ -2,7 +2,7 @@ from primary_menu_items import *
 from connect import *
 from colors import *
 
-def main():
+def primary_menu():
     """Main function."""
 
     conn = connect_to_database()
@@ -48,6 +48,3 @@ def main():
     # Close connection and disconnect from the database.
     conn.close()
     disconnect_from_database(conn)
-
-if __name__ == "__main__":
-    main()
