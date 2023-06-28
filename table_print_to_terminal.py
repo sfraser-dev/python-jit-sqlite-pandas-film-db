@@ -1,7 +1,6 @@
 import pandas as pd
+from tabulate import tabulate
 from colors import *
-
-
 
 def table_print_to_terminal(conn, query, query_to_read_db="use-query-argument"):
     """Performs a SQL query then writes the resultant view to the terminal.
