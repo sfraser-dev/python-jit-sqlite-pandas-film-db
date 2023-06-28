@@ -1,7 +1,7 @@
 from secondary_menu_items import *
 from colors import *
 
-def secondary_menu_specific_report(conn):
+def secondary_menu(conn):
     """Top level menu for viewing a specific report."""
     question = f"""{bcolors.OKBLUE}
 1. View all films from selected year
@@ -26,10 +26,10 @@ def secondary_menu_specific_report(conn):
                     print("Exiting")
                     break
                 case _:
-                    print(f"{bcolors.FAIL}input error, please try again{bcolors.ENDC}")
+                    print(f"{bcolors.FAIL}input range error, please input 1, 2, 3 or 4{bcolors.ENDC}")
                     continue
         except ValueError:
-                print(f"{bcolors.FAIL}error: secondary_menu_specific_report(){bcolors.ENDC}")
+                print(f"{bcolors.FAIL}input type error, please input 1, 2, 3 or 4{bcolors.ENDC}")
                 continue
     
     

@@ -1,14 +1,24 @@
 from colors import *
 
 ##### Get integer user inputs.
-def get_input_int(question):
+def get_input_int(question, option):
     """ Generic try/except for getting and checking user input integers."""
     while True:
         try:
             val = int(input(question))
             break
         except ValueError:
-            print(f"{bcolors.FAIL}input error, please try again{bcolors.ENDC}")
+            match option:
+                case "id":
+                    print(f"{bcolors.FAIL}input type error, please input a valid id{bcolors.ENDC}")
+                case "year":
+                    print(f"{bcolors.FAIL}input type error, please input a valid year{bcolors.ENDC}")
+                case "duration":
+                    print(f"{bcolors.FAIL}input type error, please input a valid duration{bcolors.ENDC}")
+                case "list":
+                    print(f"{bcolors.FAIL}input type error, please input a number from the shown list{bcolors.ENDC}")
+                case _:
+                    print(f"{bcolors.FAIL}input type error in get_input_int(), unknown option{bcolors.ENDC}")
             continue
         except Exception as e:
             print(e)
@@ -16,16 +26,16 @@ def get_input_int(question):
     return val
 
 def get_id():
-    question = f"{bcolors.WARNING}\nEnter id of film: {bcolors.ENDC}"
-    return get_input_int(question)
+    question = f"{bcolors.WARNING}\nEnter film id: {bcolors.ENDC}"
+    return get_input_int(question, "id")
 
 def get_year():
     question = f"{bcolors.WARNING}\nEnter film release year: {bcolors.ENDC}"
-    return get_input_int(question)
+    return get_input_int(question, "year")
 
 def get_duration():
     question = f"{bcolors.WARNING}\nEnter film duration (mins): {bcolors.ENDC}"
-    return get_input_int(question)
+    return get_input_int(question, "duration")
 
 def get_field():
     wanted_text = ["title", "year", "rating", "duration", "genre"]
@@ -37,11 +47,11 @@ def get_field():
 5. Genre
 {bcolors.ENDC}"""
     while True:
-        val = get_input_int(question)
+        val = get_input_int(question, "list")
         if val in [1, 2, 3, 4, 5]:
             return wanted_text[val-1]
         else:
-            print(f"{bcolors.FAIL}please select either 1, 2, 3, 4 or 5{bcolors.ENDC}")
+            print(f"{bcolors.FAIL}input range error, please input a number from the shown list{bcolors.ENDC}")
 
 def get_rating():
     # Parental Guidance, General, Restricted
@@ -52,11 +62,11 @@ def get_rating():
 3. R
 {bcolors.ENDC}"""
     while True:
-        val = get_input_int(question)
+        val = get_input_int(question, "list")
         if val in [1, 2, 3]:
             return wanted_text[val-1]
         else:
-            print(f"{bcolors.FAIL}please select from 'PG', 'G' or 'R'{bcolors.ENDC}")
+            print(f"{bcolors.FAIL}input range error, please input a number from the shown list{bcolors.ENDC}")
 
 def get_genre():
     wanted_text = ["Comedy", "Action", "Animation", "Fantasy", "Crime"]
@@ -68,11 +78,11 @@ def get_genre():
 5. Crime
 {bcolors.ENDC}"""
     while True:
-        val = get_input_int(question)
+        val = get_input_int(question, "list")
         if val in [1, 2, 3, 4, 5]:
             return wanted_text[val-1]
         else:
-            print(f"{bcolors.FAIL}please select from 'Comedy', 'Action', 'Animation', 'Fantasy' or 'Crime'{bcolors.ENDC}")
+            print(f"{bcolors.FAIL}input range error, please input a number from the shown list{bcolors.ENDC}")
 
 ##### Get string user inputs.
 def get_input_string(question):

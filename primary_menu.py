@@ -33,16 +33,16 @@ def main():
                     primary_menu_item_4_delete_record(conn)
                     continue
                 case 5: 
-                    secondary_menu_specific_report(conn)
+                    secondary_menu(conn)
                     continue
                 case 6:
                     print("Exiting program")
                     break
                 case _:
-                    print(f"{bcolors.FAIL}input error, please try again{bcolors.ENDC}")
+                    print(f"{bcolors.FAIL}input range error, please select 1, 2, 3, 4, 5 or 6{bcolors.ENDC}")
                     continue
         except ValueError:
-            print(f"{bcolors.FAIL}error: primary_menu(){bcolors.ENDC}")
+            print(f"{bcolors.FAIL}input type error, please 1, 2, 3, 4, 5 or 6{bcolors.ENDC}")
             continue
 
     # Close connection and disconnect from the database.
